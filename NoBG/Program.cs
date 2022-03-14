@@ -49,7 +49,8 @@ namespace NoBG
 
                     if (shouldKill)
                     {
-                        Console.WriteLine("Found background Processes: " + killList[0]);
+                        // Console.WriteLine("Found background Processes: " + killList[0]);
+
                         // a hacky solution to check if the process is still open
                         // basically if a process is OPENING it runs in the background. This can lead to the program killing it.
                         System.Threading.Thread.Sleep(5000);
@@ -68,12 +69,12 @@ namespace NoBG
                             {
                                 try
                                 {
-                                    Console.WriteLine("Killing: " + p.ProcessName);
+                                    // Console.WriteLine("Killing: " + p.ProcessName);
                                     p.Kill();
                                 }
                                 catch
                                 {
-                                    Console.WriteLine("Failed to kill: " + p.ProcessName);
+                                    // Console.WriteLine("Failed to kill: " + p.ProcessName);
                                     var exeName = Process.GetCurrentProcess().MainModule.FileName;
                                     ProcessStartInfo startInfo = new ProcessStartInfo(exeName);
                                     startInfo.Verb = "runas";
