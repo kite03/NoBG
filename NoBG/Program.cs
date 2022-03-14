@@ -4,8 +4,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NoBG
 {
@@ -44,8 +42,14 @@ namespace NoBG
                         }
                     }
 
+                    if (killList.Count == 0)
+                    {
+                        shouldKill = false;
+                    }
+
                     if (shouldKill)
                     {
+                        Console.WriteLine("Found background Processes: " + killList[0]);
                         // a hacky solution to check if the process is still open
                         // basically if a process is OPENING it runs in the background. This can lead to the program killing it.
                         System.Threading.Thread.Sleep(5000);
@@ -62,7 +66,20 @@ namespace NoBG
                         {
                             foreach (Process p in killList)
                             {
-                                p.Kill();
+                                try
+                                {
+                                    Console.WriteLine("Killing: " + p.ProcessName);
+                                    p.Kill();
+                                }
+                                catch
+                                {
+                                    Console.WriteLine("Failed to kill: " + p.ProcessName);
+                                    var exeName = Process.GetCurrentProcess().MainModule.FileName;
+                                    ProcessStartInfo startInfo = new ProcessStartInfo(exeName);
+                                    startInfo.Verb = "runas";
+                                    Process.Start(startInfo);
+                                    Environment.Exit(0);
+                                }
                             }
                         }
                     }
