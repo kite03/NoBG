@@ -16,5 +16,7 @@ Stop certain applications running in the background
 
 ## How to make it run at startup
 1.) Press the Windows Key + R.
+
 2.) Type shell:startup and press ok. This will open the windows startup folder.
+
 3.) Create a shortcut to the NoBG exe and place it in that folder.
